@@ -1,0 +1,2 @@
+# AssetManagement
+Create a view based on the attached mock-up. When a user imports a file, the data should be appended to the table. When you click the table headers, the table should sort based on the field you clicked. Clicking on it again should toggle the sort order between ascending and descending. Please follow the mock-up, but don’t worry about making things pixel-perfect except where things are specified in red text in the mock-up.
