@@ -10,45 +10,26 @@ var  assetSchema =  mongoose.Schema({
     DateOfBirth: Date
 });
 
-var Asset = mongoose.model("Asset", assetSchema);
+const Asset = mongoose.model("Asset", assetSchema);
 
-var ProcessCommmaFile = function(data){
+var Create = function(data) {
+    let asset = {};
+    let order = [];
+    let values = [];
     if(data.includes(',')) {
-        var values = data.split(',');
-        var asset = {};
-        fileOrder.COMMA_DELIMITED_FILE_ORDER.split(',').forEach(function(order, index){
-            console.log(order, index)
-            asset[order] = values[index];
-
-        });
-        console.log(aseet);
-        return asset;
+        values = data.split(',');
+        order = fileOrder.COMMA_DELIMITED_FILE_ORDER.split(',');
+    }  else if(data.includes(' ')) {
+        values = data.split(' ');
+        order = fileOrder.SPACE_DELIMITED_FILE_ORDER.split(' ');
+    } else  if(data.includes('|')) {
+        values = data.split('|');
+        order = fileOrder.PIPE_DELIMITED_FILE_ORDER.split('|');
     }
-    return {};
+    order.forEach(function(property, index){
+        asset[property] = values[index] ? values[index] : '';
+    });
+    return asset;
 }
 
-var ProcessSpaceFile = function(data){
-    if(data.includes(' ')) {
-        var values = data.split(' ');
-        var asset = {};
-        fileOrder.SPACE_DELIMITED_FILE_ORDER.split(' ').forEach(function(order, index){
-            asset[order] = values[index];
-        });
-        return asset;
-    }
-    return {};
-}
-
-var ProcessPipeFile = function(data){
-  if(data.includes('|')) {
-        var values = data.split('|');
-        var asset = {};
-        fileOrder.SPACE_DELIMITED_FILE_ORDER.split('|').forEach(function(order, index){
-            asset[order] = values[index];
-        });
-        return asset;
-    }
-    return {};
-}
-
-module.exports =  {Asset, ProcessCommmaFile};
+module.exports =  {Asset, Create};
