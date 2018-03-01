@@ -2,14 +2,14 @@ const express = require('express');
 const Create = require('../models/assetModel').Create;
 const Compare = require('../models/assetModel').Compare;
 
-const routes = function (Asset) {
+const routes = (Asset) => {
     var assetRouter = express.Router();
     assetRouter.route('/POST')
         .post(function (req, res) {
             var body = [];
-            req.on('data', function (chunk) {
+            req.on('data', (chunk) => {
                 body.push(chunk);
-            }).on('end', function () {
+            }).on('end', () => {
                 var requestBody = JSON.parse(Buffer.concat(body).toString());
                 if (requestBody && requestBody.data && requestBody.data.length > 0) {
                     let assets = [];
@@ -23,7 +23,7 @@ const routes = function (Asset) {
                                     if (err) {
                                         res.status(400).send(err);
                                     } else {
-                                        asset.save((error)=> {
+                                        asset.save((error) => {
                                             res.status(400).send(err);
                                         });
                                     }
@@ -38,28 +38,75 @@ const routes = function (Asset) {
             });
 
         });
-
+    assetRouter.route('/COUNT')
+        .get((req, res) => {
+            Asset.find({}, (err,assets) => {
+            const Count = {'Count':  assets.length}
+                 res.json(Count);
+            });
+          
+         })
     assetRouter.route('/GET')
-        .get(function (req, res) {
-            console.log(req.query);
-            if (req.query && req.query.sort) {
-                Asset.find(req.query.asset, function (err, assets) {
-                    if (err) {
-                        res.status(500).send(err);
-                    } else {
-                        res.json(assets);
-                    }
-                }).sort(req.query.sort);
-            } else if(req.query.asset){
-                Asset.find(req.query.asset, function (err, assets) {
-                    if (err) {
-                        res.status(500).send(err);
-                    } else {
-                        res.json(assets);
-                    }
-                });
+        .get((req, res) => {
+            const sort = req.query.sort;
+            const asset = req.query.asset ? req.query.asset : {};
+            const pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber) : null;
+            const noPerPage = req.query.noPerPage ? parseInt(req.query.noPerPage) : null;
+            if (req.query) {
+                if (sort && noPerPage && pageNumber) {
+                    Asset.find(req.query.asset, (err, assets) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(assets);
+                        }
+                    }).sort(sort).skip(pageNumber > 0 ? ((pageNumber - 1) * noPerPage) : 0).limit(noPerPage)
+                } else if (!sort && noPerPage && pageNumber) {
+                    Asset.find(req.query.asset, (err, assets) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(assets);
+                        }
+                    }).skip(pageNumber > 0 ? ((pageNumber - 1) * noPerPage) : 0).limit(noPerPage)
+                } else if (!sort && noPerPage && !pageNumber) {
+                    Asset.find(req.query.asset, (err, assets) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(assets);
+                        }
+                    }).limit(noPerPage)
+                }
+                else if (sort && noPerPage && !pageNumber) {
+                    Asset.find(req.query.asset, (err, assets) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(assets);
+                        }
+                    }).sort(sort).limit(noPerPage)
+                }
+                else if (sort && !noPerPage && !pageNumber) {
+                    Asset.find(req.query.asset, (err, assets) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(assets);
+                        }
+                    }).sort(sort);
+                }
+                else {
+                    Asset.find(req.query.asset, (err, assets) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(assets);
+                        }
+                    });
+                }
             } else {
-                 Asset.find({}, function (err, assets) {
+                Asset.find({}, (err, assets) => {
                     if (err) {
                         res.status(500).senld(err);
                     } else {
