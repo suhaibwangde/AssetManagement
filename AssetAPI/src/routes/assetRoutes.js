@@ -23,7 +23,9 @@ const routes = function (Asset) {
                                     if (err) {
                                         res.status(400).send(err);
                                     } else {
-                                        asset.save(asset);
+                                        asset.save((error)=> {
+                                            res.status(400).send(err);
+                                        });
                                     }
                                 }
                             });

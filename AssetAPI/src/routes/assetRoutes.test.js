@@ -290,14 +290,13 @@ describe.only('Scenario: Sort Assets', () => {
     });
     describe('Given ', () => {
         before(() => {
-            var asset = Create('Votraw1,Moses,None,Blue,11/13/1964');
-            ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].forEach((i) => {
+            Asset.insertMany(['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f','g', 'h', 'j', 'k', 'l', 'm'].map((i, index) => {
+                var asset = Create('Votraw1,Moses,None,Blue,11/13/1964');
                 asset.LastName = i;
                 const dob = new Date(asset.DateOfBirth);
-                asset.DateOfBirth = dob.getMonth() + '/' + (dob.getDay() + 1) + '/' + dob.getFullYear();
-                var assetDb = new Asset(asset);
-                assetDb.save();
-            });
+                asset.DateOfBirth = dob.getMonth() + '/' + (dob.getDay() + index) + '/' + dob.getFullYear();
+                return asset;
+            }));
         });
         describe('We have 20 record in database', () => {
             describe('When sort on LastName is applied', () => {
@@ -311,9 +310,9 @@ describe.only('Scenario: Sort Assets', () => {
                             .end((err, res) => {
                                 res.should.have.status(200);
                                 res.body.should.be.a('array');
-                                res.body.length.should.be.eql(10);
-                                res.body[0].should.have.property('LastName').eql('e');
-                                res.body[9].should.have.property('LastName').eql('y');
+                                res.body.length.should.be.eql(20);
+                                res.body[0].should.have.property('LastName').eql('a');
+                                res.body[19].should.have.property('LastName').eql('y');
                                 done();
                             });
                     });
@@ -331,9 +330,9 @@ describe.only('Scenario: Sort Assets', () => {
                             .end((err, res) => {
                                 res.should.have.status(200);
                                 res.body.should.be.a('array');
-                                res.body.length.should.be.eql(10);
+                                res.body.length.should.be.eql(20);
                                 res.body[0].should.have.property('LastName').eql('y');
-                                res.body[9].should.have.property('LastName').eql('e');
+                                res.body[19].should.have.property('LastName').eql('a');
                                 done();
                             });
                     });
