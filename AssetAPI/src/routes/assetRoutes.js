@@ -40,9 +40,8 @@ const routes = function (Asset) {
 
     assetRouter.route('/GET')
         .get(function (req, res) {
-            data.find(req.query, function (err, assets) {
+            Asset.find(req.query, function (err, assets) {
                 if (err) {
-                    console.log('hey')
                     res.status(500).send(err);
                 } else {
                     res.json(assets);

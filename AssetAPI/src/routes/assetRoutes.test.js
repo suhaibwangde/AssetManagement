@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Asset = require('../models/assetModel').Asset;
-const assetDb = require('../database/assetDb');
+const Create = require('../models/assetModel').Create;
+const Asset = require('../database/assetDb');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../app');
@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 describe.only('Scenario: Upload Assets', () => {
     beforeEach((done) => {
-        assetDb.remove({}, (err) => {
+        Asset.remove({}, (err) => {
             done();
         });
     });
@@ -170,7 +170,7 @@ describe.only('Scenario: Upload Assets', () => {
             describe('When /POST is initiated', () => {
                 describe('then', () => {
                     it('it should send message', (done) => {
-                        let asset = { 'data': null};
+                        let asset = { 'data': null };
                         chai.request(server)
                             .post('/Assets/POST')
                             .send(asset)
@@ -204,31 +204,84 @@ describe.only('Scenario: Upload Assets', () => {
         });
     });
 });
-describe('Scenario: Get Assets', () => {
+describe.only('Scenario: Get Assets', () => {
+    beforeEach((done) => {
+        Asset.remove({}, (err) => {
+            done();
+        });
+    });
+    describe('Given', () => {
+        describe('Database is ready', () => {
+            describe('When /GET is initiated', () => {
+                describe('then', () => {
+                    it('Should reterive zero assets in response with 200', (done) => {
+                        chai.request(server)
+                            .get('/Assets/GET')
+                            .end((err, res) => {
+                                res.should.have.status(200);
+                                res.body.should.be.a('array');
+                                res.body.length.should.be.eql(0);
+                                done();
+                            });
+                    });
+                });
+            });
+            describe('and database have 2 asset', () => {
+                describe('When /GET is initiated', () => {
+                    describe('then', () => {
+                        before(() => {
+                            var assets = ['Votraw1,Moses,None,Blue,11/13/1964', 'Votraw2,Moses,None,Blue,11/13/1964'];
+                            assets.forEach((asset) => {
+                                var assetDb = new Asset(Create(asset));
+                                assetDb.save();
+                            });
+                        });
+                        it('Should reterive 2 assets in response with 200', () => {
+                            chai.request(server)
+                                .get('/Assets/GET')
+                                .end((err, res) => {
+                                    res.should.have.status(200);
+                                    res.body.should.be.a('array');
+                                    res.body.length.should.be.eql(2);
+                                    done();
+                                });
+                        });
+                    });
+                });
+            });
+             describe('And database have assets wih lastNmae Votraw1, Votraw2, Votraw3', () => {
+                describe('When /GET is initiated with LastName: Votraw2', () => {
+                    describe('then', () => {
+                        before(() => {
+                            var assets = ['Votraw1,Moses,None,Blue,11/13/1964', 'Votraw2,Moses,None,Blue,11/13/1964', 'Votraw3,Moses,None,Blue,11/13/1964'];
+                            assets.forEach((asset) => {
+                                var assetDb = new Asset(Create(asset));
+                                assetDb.save();
+                            });
+                            done();
+                        });
+                        it.only('Should reterive only 1 assets in response with LastName: Votraw1', (done) => {
+                            const req = {};
+                            req.query = {'LastName': 'Votraw1'};
+                            chai.request(server)
+                                .get('/Assets/GET')
+                                .send(req)
+                                .end((err, res) => {
+                                    res.should.have.status(200);
+                                    res.body.should.be.a('array');
+                                    res.body.length.should.be.eql(1);
+                                    res.body[0].should.have.property('LastName').eql('Votraw1');
+                                    done();
+                                });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
 
 });
 describe('Scenario: Sort Assets', () => {
 
-});
-
-describe('Assets', () => {
-
-    /*
-    * Test the /Get route
-    */
-    describe('/GET Assets', () => {
-        it('it should GET all the assets', (done) => {
-            chai.request(server)
-                .get('/Assets/GET')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(0);
-                    done();
-                });
-        });
-    });
-    /*
-    * Test the /POST route
-    */
 });
