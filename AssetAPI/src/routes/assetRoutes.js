@@ -1,73 +1,56 @@
-var express = require('express');
+const express = require('express');
+const Create = require('../models/assetModel').Create;
+const Compare = require('../models/assetModel').Compare;
 
-function verifyQuestion(data) {
-    let errors = '';
-    const isQuestion = new RegExp("(\\?)$");
-    const hasMath = new RegExp("(\\d+)");
-    const isNotValidAnswer = new RegExp("([aA-zZ]+)");
-    if(data.question.length == 0) {
-        errors = errors + ", " + "Question cannot be empty.";
-    } else if(!isQuestion.test(data.question)) {
-        errors = errors +  ", " + "Question should be ending with '?'";
-    } else if(!hasMath.test(data.question)) {
-        errors = errors +  ", " + "Question should contain numeric mathematical expression?";
-    }
-    if(data.answer.length == 0 ) {
-        errors = errors +  ", " + "Answer cannot be empty";
-    } else if(isNotValidAnswer.test(data.answer)) {
-        errors = errors +  ", " +"Answer should be a numeric only";
-    }
-    return errors;
-}
-
-var routes = function (data) {
+const routes = function (Asset) {
     var assetRouter = express.Router();
-
     assetRouter.route('/POST')
-        .post(function(req, res) {
+        .post(function (req, res) {
             var body = [];
             req.on('data', function (chunk) {
-               body.push(chunk);
-            }).on('end', function() {
-                 console.log(Buffer.concat(body).toString());
+                body.push(chunk);
+            }).on('end', function () {
                 var requestBody = JSON.parse(Buffer.concat(body).toString());
-    
-                if(requestBody) {
-                //     data.find({question: requestBody.question}, function(err, question){
-                //        if (question.length > 0) {
-                //            res.status(400).send('Question already existing!!');
-                //        } else {
-                //            var err = verifyQuestion(requestBody);
-                //            if(err) {
-                //                res.status(400).send(err);
-                //            } else {
-                //                var questionModel = new data(requestBody);
-                //                questionModel.save();
-                //                res.status(201).send(questionModel);
-                //            }
-                //        }
-                //     });
-                } else
-                {
-                   res.status(400).send('Bad Request: Did not find response in body');
+                if (requestBody && requestBody.data && requestBody.data.length > 0) {
+                    let assets = [];
+                    requestBody.data.forEach((raw) => {
+                        let asset = new Asset(Create(raw));
+                        if (asset) {
+                            if (assets.findIndex((other) => !Compare(asset, other)) === -1)
+                                assets.push(asset);
+                            Asset.find(asset, (err, exists) => {
+                                if (exists.length == 0) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    } else {
+                                        asset.save(asset);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    res.status(200).send(assets);
+                } else {
+                    console.log('check');
+                    res.status(400).send('Please upload valid assets');
                 }
             });
 
         });
-    
+
     assetRouter.route('/GET')
-        .get(function(req, res){
-            data.find(req.query, function(err, questions){
-                if(err){
-                                    console.log('hey')
+        .get(function (req, res) {
+            data.find(req.query, function (err, assets) {
+                if (err) {
+                    console.log('hey')
                     res.status(500).send(err);
                 } else {
-                    res.json(questions);
+                    res.json(assets);
                 }
             });
         });
 
-return assetRouter;
+    return assetRouter;
 };
 
 module.exports = routes;

@@ -1,18 +1,6 @@
-var mongoose = require('mongoose');
-var fileOrder = require('./fileOrder');
+const fileOrder = require('./fileOrder');
 
-var  assetSchema =  mongoose.Schema({
-    LastName: String,
-    FirstName: String,
-    MiddleInitial: String,
-    Pet: String,
-    FavoriteColor: String,
-    DateOfBirth: Date
-});
-
-const Asset = mongoose.model("Asset", assetSchema);
-
-var Create = function(data) {
+const Create = (data) => {
     let asset = {};
     let order = [];
     let values = [];
@@ -32,4 +20,13 @@ var Create = function(data) {
     return asset;
 }
 
-module.exports =  {Asset, Create};
+const Compare = (one, two) => {
+   return one['LastName'] === two['LastName'] &&
+    one['MiddleInitial'] === two['MiddleInitial'] &&
+    one['FirstName'] === two['FirstName'] &&
+    one['Pet'] === two['Pet'] &&
+    one['DateOfBirth'] === two['DateOfBirth'] &&
+    one['FavoriteColor'] === two['FavoriteColor']
+};
+
+module.exports =  {Create, Compare};

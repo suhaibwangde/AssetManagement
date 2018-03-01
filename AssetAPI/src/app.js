@@ -4,20 +4,20 @@ var express = require('express'),
 
 var host = '27017';
 var db = mongoose.connect('mongodb://localhost:'+ host + '/assets');
-var assetModel = require('./models/assetModel');
+var Asset = require('./database/assetDb');
 var app = express();
 
 var port = process.env.PORT || 3001;
 
 
-var assetRouter = require('./routes/assetRoutes')(assetModel.Asset);
+var assetRouter = require('./routes/assetRoutes')(Asset);
 
 app.use('/Assets', assetRouter);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.json('Weloome to Question API');
+    res.json('Asset API');
 });
 
 var server = app.listen(port, function () {

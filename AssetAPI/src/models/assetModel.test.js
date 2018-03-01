@@ -1,4 +1,4 @@
-let assetModel = require('../models/assetModel');
+let Create = require('../models/assetModel');
 let chai = require('chai');
 let should = chai.should();
 describe('Asset Model ATDD Tests', () => {
@@ -9,7 +9,7 @@ describe('Asset Model ATDD Tests', () => {
                     describe('Then', () => {
                         it('it should create asset with valid properties', () => {
                             var commaVal = 'Votraw,Moses,None,Blue,11/13/1964';
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '11/13/1964',
                                 FavoriteColor: 'Blue',
@@ -36,7 +36,7 @@ describe('Asset Model ATDD Tests', () => {
                     describe('When create is initiated', () => {
                         it('it should create asset with valid and others as empty', () => {
                             var commaVal = 'Votraw,Moses';
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '',
                                 FavoriteColor: '',
@@ -63,7 +63,7 @@ describe('Asset Model ATDD Tests', () => {
                     describe('When create is initiated', () => {
                         it('it should create Asset with empty properties', () => {
                             var commaVal = ',,,,';
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '',
                                 FavoriteColor: '',
@@ -94,7 +94,7 @@ describe('Asset Model ATDD Tests', () => {
                     describe('Then', () => {
                         it('it should create asset with valid properties', () => {
                             var commaVal = 'Evelo|Dalila|G|None|Blue|6-3-1968';
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '6-3-1968',
                                 FavoriteColor: 'Blue',
@@ -124,7 +124,7 @@ describe('Asset Model ATDD Tests', () => {
                     describe('Then', () => {
                         it('it should create Asset with empty properties', () => {
                             var commaVal = '||||';
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '',
                                 FavoriteColor: '',
@@ -155,7 +155,7 @@ describe('Asset Model ATDD Tests', () => {
                         it('it should create Asset with empty properties', () => {
                             var commaVal = 'test|name';
 
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '',
                                 FavoriteColor: '',
@@ -189,7 +189,7 @@ describe('Asset Model ATDD Tests', () => {
                     describe('Then', () => {
                         it('it should create asset with valid properties', () => {
                             var commaVal = 'Venessa Mearse U D 3-3-1992 Black';
-                            var actual = assetModel.Create(commaVal);
+                            var actual = Create(commaVal);
                             var expected = {
                                 DateOfBirth: '3-3-1992',
                                 FavoriteColor: 'Black',
@@ -218,7 +218,7 @@ describe('Asset Model ATDD Tests', () => {
                 describe('Then', () => {
                     it('it should create asset with valid and others as empty', () => {
                         var commaVal = 'Venessa Mearse';
-                        var actual = assetModel.Create(commaVal);
+                        var actual = Create(commaVal);
                         var expected = {
                             DateOfBirth: '',
                             FavoriteColor: '',
@@ -244,7 +244,7 @@ describe('Asset Model ATDD Tests', () => {
                 describe('Then', () => {
                     it('it should create Asset with empty properties', () => {
                         var commaVal = '     ';
-                        var actual = assetModel.Create(commaVal);
+                        var actual = Create(commaVal);
                         var expected = {
                             DateOfBirth: '',
                             FavoriteColor: '',
