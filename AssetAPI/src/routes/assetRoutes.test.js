@@ -249,7 +249,7 @@ describe.only('Scenario: Get Assets', () => {
                     });
                 });
             });
-             describe('And database have assets wih lastNmae Votraw1, Votraw2, Votraw3', () => {
+            describe('And database have assets wih lastNmae Votraw1, Votraw2, Votraw3', () => {
                 describe('When /GET is initiated with LastName: Votraw2', () => {
                     describe('then', () => {
                         before(() => {
@@ -262,7 +262,7 @@ describe.only('Scenario: Get Assets', () => {
                         });
                         it.only('Should reterive only 1 assets in response with LastName: Votraw1', (done) => {
                             const req = {};
-                            req.query = {'LastName': 'Votraw1'};
+                            req.query = { 'LastName': 'Votraw1' };
                             chai.request(server)
                                 .get('/Assets/GET')
                                 .send(req)
@@ -282,6 +282,63 @@ describe.only('Scenario: Get Assets', () => {
 
 
 });
-describe('Scenario: Sort Assets', () => {
-
+describe.only('Scenario: Sort Assets', () => {
+    before((done) => {
+        Asset.remove({}, (err, obj) => {
+            done();
+        });
+    });
+    describe('Given ', () => {
+        before(() => {
+            var asset = Create('Votraw1,Moses,None,Blue,11/13/1964');
+            ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].forEach((i) => {
+                asset.LastName = i;
+                const dob = new Date(asset.DateOfBirth);
+                asset.DateOfBirth = dob.getMonth() + '/' + (dob.getDay() + 1) + '/' + dob.getFullYear();
+                var assetDb = new Asset(asset);
+                assetDb.save();
+            });
+        });
+        describe('We have 20 record in database', () => {
+            describe('When sort on LastName is applied', () => {
+                describe('then', () => {
+                    it.only('should reterive record sorted by lastname ascending', (done) => {
+                        let req = {};
+                        req.sort = { 'LastName': 1 }
+                        chai.request(server)
+                            .get('/Assets/GET')
+                            .query(req)
+                            .end((err, res) => {
+                                res.should.have.status(200);
+                                res.body.should.be.a('array');
+                                res.body.length.should.be.eql(10);
+                                res.body[0].should.have.property('LastName').eql('e');
+                                res.body[9].should.have.property('LastName').eql('y');
+                                done();
+                            });
+                    });
+                });
+            });
+            describe('When sort by descending on LastName is applied', () => {
+                describe('then', () => {
+                    it('should reterive record sorted by lastname desending', (done) => {
+                        let req = {};
+                        req = {};
+                        req.sort = { 'LastName': -1 }
+                        chai.request(server)
+                            .get('/Assets/GET')
+                            .query(req)
+                            .end((err, res) => {
+                                res.should.have.status(200);
+                                res.body.should.be.a('array');
+                                res.body.length.should.be.eql(10);
+                                res.body[0].should.have.property('LastName').eql('y');
+                                res.body[9].should.have.property('LastName').eql('e');
+                                done();
+                            });
+                    });
+                });
+            });
+        });
+    });
 });

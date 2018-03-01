@@ -31,7 +31,6 @@ const routes = function (Asset) {
                     });
                     res.status(200).send(assets);
                 } else {
-                    console.log('check');
                     res.status(400).send('Please upload valid assets');
                 }
             });
@@ -40,13 +39,33 @@ const routes = function (Asset) {
 
     assetRouter.route('/GET')
         .get(function (req, res) {
-            Asset.find(req.query, function (err, assets) {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.json(assets);
-                }
-            });
+            console.log(req.query);
+            if (req.query && req.query.sort) {
+                Asset.find(req.query.asset, function (err, assets) {
+                    if (err) {
+                        res.status(500).send(err);
+                    } else {
+                        res.json(assets);
+                    }
+                }).sort(req.query.sort);
+            } else if(req.query.asset){
+                Asset.find(req.query.asset, function (err, assets) {
+                    if (err) {
+                        res.status(500).send(err);
+                    } else {
+                        res.json(assets);
+                    }
+                });
+            } else {
+                 Asset.find({}, function (err, assets) {
+                    if (err) {
+                        res.status(500).senld(err);
+                    } else {
+                        res.json(assets);
+                    }
+                });
+            }
+
         });
 
     return assetRouter;
