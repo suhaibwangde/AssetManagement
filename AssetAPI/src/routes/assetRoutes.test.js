@@ -8,7 +8,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 describe('API ATDD Tests', () => {
-    describe.only('Scenario: Upload Assets', () => {
+    describe('Scenario: Upload Assets', () => {
         beforeEach((done) => {
             Asset.remove({}, (err) => {
                 done();
@@ -204,8 +204,8 @@ describe('API ATDD Tests', () => {
             });
         });
     });
-    describe.only('Scenario: Get Assets', () => {
-        beforeEach((done) => {
+    describe('Scenario: Get Assets', () => {
+        before((done) => {
             Asset.remove({}, (err) => {
                 done();
             });
@@ -252,20 +252,22 @@ describe('API ATDD Tests', () => {
                 describe('And database have assets wih lastNmae Votraw1, Votraw2, Votraw3', () => {
                     describe('When /GET is initiated with LastName: Votraw2', () => {
                         describe('then', () => {
-                            before(() => {
+                            before((done) => {
+                                Asset.remove({}, (err) => {
+                                    done();
+                                });
                                 var assets = ['Votraw1,Moses,None,Blue,11/13/1964', 'Votraw2,Moses,None,Blue,11/13/1964', 'Votraw3,Moses,None,Blue,11/13/1964'];
                                 assets.forEach((asset) => {
                                     var assetDb = new Asset(Create(asset));
                                     assetDb.save();
                                 });
-                                done();
                             });
-                            it.only('Should reterive only 1 assets in response with LastName: Votraw1', (done) => {
-                                const req = {};
-                                req.query = { 'LastName': 'Votraw1' };
+                            it('Should reterive only 1 assets in response with LastName: Votraw1', (done) => {
+                                let req = {};
+                                req.asset = { 'LastName': 'Votraw1' };
                                 chai.request(server)
                                     .get('/Assets/GET')
-                                    .send(req)
+                                    .query(req)
                                     .end((err, res) => {
                                         res.should.have.status(200);
                                         res.body.should.be.a('array');
@@ -280,7 +282,7 @@ describe('API ATDD Tests', () => {
             });
         });
     });
-    describe.only('Scenario: Sort Assets', () => {
+    describe('Scenario: Sort Assets', () => {
         before((done) => {
             Asset.remove({}, (err, obj) => {
                 done();
@@ -297,10 +299,10 @@ describe('API ATDD Tests', () => {
                 }));
             });
             describe('We have 20 record in database', () => {
-                 describe('When count is reqwuestd', () => {
-                     describe('then', () => {
-                          it.only('should reterive 20 count', (done) => {
-                               chai.request(server)
+                describe('When count is reqwuestd', () => {
+                    describe('then', () => {
+                        it('should reterive 20 count', (done) => {
+                            chai.request(server)
                                 .get('/Assets/COUNT')
                                 .end((err, res) => {
                                     res.should.have.status(200);
@@ -308,12 +310,12 @@ describe('API ATDD Tests', () => {
                                     res.body.should.have.property('Count').eql(20);
                                     done();
                                 });
-                          });
-                     });
-                 });
+                        });
+                    });
+                });
                 describe('When sort on LastName is applied', () => {
                     describe('then', () => {
-                        it.only('should reterive record sorted by lastname ascending', (done) => {
+                        it('should reterive record sorted by lastname ascending', (done) => {
                             let req = {};
                             req.sort = { 'LastName': 1 }
                             chai.request(server)
@@ -331,7 +333,7 @@ describe('API ATDD Tests', () => {
                     });
                     describe('And noPerPage of 5 is applied', () => {
                         describe('then', () => {
-                            it.only('should reterive 5 record sorted by lastname ascending', (done) => {
+                            it('should reterive 5 record sorted by lastname ascending', (done) => {
                                 let req = {};
                                 req.sort = { 'LastName': 1 }
                                 req.noPerPage = 5;
@@ -350,7 +352,7 @@ describe('API ATDD Tests', () => {
                         });
                         describe('And pageNumber 1 is applied', () => {
                             describe('then', () => {
-                                it.only('should reterive 5 record sorted by lastname ascending', (done) => {
+                                it('should reterive 5 record sorted by lastname ascending', (done) => {
                                     let req = {};
                                     req.sort = { 'LastName': 1 }
                                     req.noPerPage = 5;
@@ -371,7 +373,7 @@ describe('API ATDD Tests', () => {
                         });
                         describe('And pageNumber 2 is applied', () => {
                             describe('then', () => {
-                                it.only('should reterive 5 record sorted by lastname ascending', (done) => {
+                                it('should reterive 5 record sorted by lastname ascending', (done) => {
                                     let req = {};
                                     req.sort = { 'LastName': 1 }
                                     req.noPerPage = 5;

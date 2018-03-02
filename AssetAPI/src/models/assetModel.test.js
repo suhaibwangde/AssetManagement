@@ -1,4 +1,4 @@
-let Create = require('../models/assetModel');
+let Create = require('../models/assetModel').Create;
 let chai = require('chai');
 let should = chai.should();
 describe('Asset Model ATDD Tests', () => {

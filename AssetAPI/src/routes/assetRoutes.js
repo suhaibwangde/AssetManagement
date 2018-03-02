@@ -54,7 +54,7 @@ const routes = (Asset) => {
             const noPerPage = req.query.noPerPage ? parseInt(req.query.noPerPage) : null;
             if (req.query) {
                 if (sort && noPerPage && pageNumber) {
-                    Asset.find(req.query.asset, (err, assets) => {
+                    Asset.find(asset, (err, assets) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
@@ -62,7 +62,7 @@ const routes = (Asset) => {
                         }
                     }).sort(sort).skip(pageNumber > 0 ? ((pageNumber - 1) * noPerPage) : 0).limit(noPerPage)
                 } else if (!sort && noPerPage && pageNumber) {
-                    Asset.find(req.query.asset, (err, assets) => {
+                    Asset.find(asset, (err, assets) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
@@ -70,7 +70,7 @@ const routes = (Asset) => {
                         }
                     }).skip(pageNumber > 0 ? ((pageNumber - 1) * noPerPage) : 0).limit(noPerPage)
                 } else if (!sort && noPerPage && !pageNumber) {
-                    Asset.find(req.query.asset, (err, assets) => {
+                    Asset.find(asset, (err, assets) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
@@ -79,7 +79,7 @@ const routes = (Asset) => {
                     }).limit(noPerPage)
                 }
                 else if (sort && noPerPage && !pageNumber) {
-                    Asset.find(req.query.asset, (err, assets) => {
+                    Asset.find(asset, (err, assets) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
@@ -88,7 +88,7 @@ const routes = (Asset) => {
                     }).sort(sort).limit(noPerPage)
                 }
                 else if (sort && !noPerPage && !pageNumber) {
-                    Asset.find(req.query.asset, (err, assets) => {
+                    Asset.find(asset, (err, assets) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
@@ -97,7 +97,7 @@ const routes = (Asset) => {
                     }).sort(sort);
                 }
                 else {
-                    Asset.find(req.query.asset, (err, assets) => {
+                    Asset.find(asset, (err, assets) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
@@ -106,7 +106,7 @@ const routes = (Asset) => {
                     });
                 }
             } else {
-                Asset.find({}, (err, assets) => {
+                Asset.find(asset, (err, assets) => {
                     if (err) {
                         res.status(500).senld(err);
                     } else {
