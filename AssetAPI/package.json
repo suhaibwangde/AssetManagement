@@ -19,7 +19,7 @@
     "fast-csv": "^2.4.1",
     "gulp": "^3.9.1",
     "mongoose": "^4.13.11",
-    "nodemon": "^1.15.1"
+    "nodemon": "^1.17.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
