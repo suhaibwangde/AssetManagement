@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import * as assetsActions from '../../actions/assetsActions';
 import HomePage from '../../components/home/HomePage';
 
-mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        assets: state.assets,
+        assets: state.assets.size > 0 ? state.assets.toJS(): [],
         totalAssets: state.totalAssets
     };
 }
 
-mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         actions: bindActionCreators(assetsActions, dispatch)
     };

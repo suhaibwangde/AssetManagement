@@ -3,10 +3,9 @@ import {connect} from 'react-redux';
 import App from '../components/App';
 
 
-mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    loading: state.ajaxCallInProgress > 0,
-    noOfAssets : state.assets.length
+    loading: state.ajaxCallInProgress > 0
   };
 }
 

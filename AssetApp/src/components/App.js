@@ -1,17 +1,20 @@
 import React, {PropTypes} from 'react';
 
-const App = () => {
+class App extends React.Component{
+  render(){
     return (
       <div>
           {!this.props.loading && this.props.children}
       </div>
     );
+  }
 }
 
 App.propTypes = {
   children: PropTypes.object.isRequired,
-  loading: PropTypes.bool,
-  noOfAssets: PropTypes.number
+  loading: PropTypes.bool
 };
+
+
 
 export default (App);
