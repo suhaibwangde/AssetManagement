@@ -1,11 +1,11 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import App from './components/App';
-import HomePage from './components/home/HomePage';
+import ConnectedApp from './containers/App';
+import ConnectedHomePage from './containers/home/HomePage';
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={HomePage}/>
-    <Route path="assets" component={HomePage}/>
+  <Route path="/" component={ConnectedApp}>
+    <IndexRoute component={ConnectedHomePage}/>
+    <Route path="assets" component={ConnectedHomePage}/>
   </Route>
 );

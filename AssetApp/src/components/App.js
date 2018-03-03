@@ -1,14 +1,11 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-class App extends React.Component{
-  render(){
-    console.log(this.props.children)
+
+const App = () => {
     return (
       <div>
           {!this.props.loading && this.props.children}
       </div>
     );
-  }
 }
 
 App.propTypes = {
@@ -17,13 +14,4 @@ App.propTypes = {
   noOfAssets: PropTypes.number
 };
 
-
-function mapStateToProps (state, ownProps) {
-  return {
-    loading: state.ajaxCallInProgress > 0,
-    noOfAssets : state.assets.length
-  };
-}
-
-
-export default connect(mapStateToProps)(App);
+export default (App);

@@ -1,0 +1,14 @@
+@import '../../styles/mixins.scss';
+.HomePage {
+  @media screen and (min-width: $break-medium) {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top:10%;   
+  }
+  &_Content {
+    &_People {
+    font-size:25px;
+    color: #363945; 
+    }
+  }
+}

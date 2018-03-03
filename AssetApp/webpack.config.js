@@ -30,7 +30,8 @@ export default {
     ],
     module: {
         loaders: [
-            {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+           // {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
             {test: /(\.css)$/, loaders: ['style', 'css']},
             {test: /(\.scss)$/, loaders: ['style', 'css', 'sass']},
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
