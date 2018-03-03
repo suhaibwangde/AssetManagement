@@ -6,6 +6,7 @@ import 'react-table/react-table.css';
 import AssetList from './AssetList';
 import {browserHistory} from 'react-router';
 import toastr from 'toastr';
+import './HomePage.scss';
 
 class AssetsPage extends React.Component {
   constructor(props, context){
@@ -14,13 +15,14 @@ class AssetsPage extends React.Component {
 
 
   render () {
-      const {assets} = this.props;
+      const {assets, totalAssets} = this.props;
+    
         return (
-          <div id="main">
-            <div id="content">
-              <h1>Assets List</h1>
-              {assets.length > 0 && <AssetList assets={assets}/>}
-              {assets.length === 0 && <p>No Assets found</p>}
+          <div id="main" className='HomePage'>
+            <div id="content" className='HomePage_Content'>
+              {totalAssets && <div> {totalAssets} People</div> }
+              {assets && assets.length > 0 && <AssetList assets={assets}/>}
+              {assets && assets.length === 0 && <p>No Assets found</p>}
             </div>
           </div>
         );
@@ -30,6 +32,7 @@ class AssetsPage extends React.Component {
 
 AssetsPage.propTypes = {
   assets : PropTypes.array.isRequired,
+  totalAssets: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
@@ -39,7 +42,8 @@ AssetsPage.contextTypes = {
 
 function mapStateToProps (state, ownProps) {
   return {
-    assets: state.assets
+    assets: state.assets,
+    totalAssets: state.totalAssets
   };
 }
 
