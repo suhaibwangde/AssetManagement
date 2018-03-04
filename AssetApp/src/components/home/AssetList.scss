@@ -1,0 +1,46 @@
+.Assets {
+    width:100%;
+ 
+ font-size: 15px;
+    &_Row {
+        width:100%;
+        &_Header {
+            width: 20%;
+            min-width: 100px;
+            text-align: left;
+            padding-bottom: 10px; 
+            font-weight: bold;
+            color:#a7a9ac;
+            border-bottom-style: double;
+            border-bottom-color: #e6e7e8;
+            &_Active_Descending {
+                color:#54bbff;
+                width: 20%;
+                min-width: 100px;
+                text-align: left;
+                padding-bottom: 10px; 
+                font-weight: bold;
+                border-bottom-style: double;
+                border-bottom-color: #e6e7e8;
+            }
+            &_Active_Ascending{
+                color:#54bbff;
+                width: 20%;
+                min-width: 100px;
+                text-align: left;
+                padding-bottom: 10px; 
+                font-weight: bold;
+                border-bottom-style: double;
+                border-bottom-color: #e6e7e8;
+            }
+        }
+        &_Data {
+            font-weight: regular;
+            text-align: left;
+            height: 50px;
+            color:#363945;
+                    border-bottom-style: double;
+        border-bottom-color: #e6e7e8;
+        }
+    }
+}
