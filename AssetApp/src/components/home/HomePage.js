@@ -7,27 +7,12 @@ import './HomePage.scss';
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleFileUpload = this.handleFileUpload.bind(this);
     this.initiateUploadFile = this.initiateUploadFile.bind(this);
     this.UploadFile = this.UploadFile.bind(this);
     this.getAsText = this.getAsText.bind(this);
     this.loadHandler =this.loadHandler.bind(this);
     this.errorHandler=this.errorHandler.bind(this);
     this.processData=this.processData.bind(this);
-  }
-
-
-  handleFileUpload() {
-
-    // fetch('http://localhost:8000/upload', {
-    //   method: 'POST',
-    //   body: data,
-    // }).then((response) => {
-    //   response.json().then((body) => {
-    //     this.setState({ imageURL: `http://localhost:8000/${body.file}` });
-    //   });
-    // });
   }
 
   initiateUploadFile() {
@@ -75,8 +60,6 @@ class HomePage extends React.Component {
           toastr.error("Canno't read file !");
       }
     }
-
-
 
 
   render() {
