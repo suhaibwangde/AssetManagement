@@ -22,6 +22,12 @@
                 font-weight: bold;
                 border-bottom-style: double;
                 border-bottom-color: #e6e7e8;
+                &_Arrow {
+                    -webkit-transform: scaleY(-1);
+                    transform: scaleY(-1);
+                    height:10px;
+                    padding-left: 10px;
+                }
             }
             &_Active_Ascending{
                 color:#54bbff;
@@ -32,6 +38,10 @@
                 font-weight: bold;
                 border-bottom-style: double;
                 border-bottom-color: #e6e7e8;
+                &_Arrow {
+                    height: 10px;
+                    padding-left: 10px;
+                }
             }
         }
         &_Data {

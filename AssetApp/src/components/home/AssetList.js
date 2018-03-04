@@ -6,11 +6,35 @@ import both from '../../content/both.png';
 import arrow from '../../content/arrow.png';
 
 const getActiveClassName = (query, column) => {
-  if (query && column) {
-    return (query['sort']) ? (query['sort'] && query['sort'][column] ? ((query['sort'] && query['sort'][column] && query['sort'][column] === 1) ?
-      'Assets_Row_Header_Active_Ascending' : 'Assets_Row_Header_Active_Descending') : 'Assets_Row_Header') : 'Assets_Row_Header';
+  const active = isActive(query, column);
+  if (active.isActive) {
+    if(active.isAscending) {
+     return  'Assets_Row_Header_Active_Ascending';
+    } 
+     else{
+        return 'Assets_Row_Header_Active_Descending'
+     } 
+  } {
+    return 'Assets_Row_Header';
   }
-  return 'Assets_Row_Header';
+}
+
+const isActive = (query, column) => {
+  const active = {
+    isActive : true,
+    isAscending: 1
+  }
+  if(query && column){
+    if(query['sort'] && query['sort'][column] ){
+      active.isActive = true;
+      active.isAscending =  query['sort'][column] === 1;
+    } else {
+      active.isActive = false;
+    }
+  } else {
+     active.isActive = false;
+  }
+  return active;
 }
 
 
@@ -45,29 +69,29 @@ const AssetList = ({ assets, updateQuery, query }) => {
         className={getActiveClassName(query, 'LastName')}
         onClick={() => updateQuery(query, 'LastName')}
       >
-        Last Name
+        Last Name{isActive(query, 'LastName').isActive ? <img className={getActiveClassName(query, 'LastName')+'_Arrow'} src={arrow}/> : ''}
         </th>
       <th
         className={getActiveClassName(query, 'FirstName')}
         onClick={() => updateQuery(query, 'FirstName')}
       >
-        First Name</th>
+        First Name{isActive(query, 'FirstName').isActive ? <img className={getActiveClassName(query, 'FirstName')+'_Arrow'} src={arrow}/> : ''}</th>
       <th
         className={getActiveClassName(query, 'MiddleInitial')}
         onClick={() => updateQuery(query, 'MiddleInitial')}
-      >Middle Initial</th>
+      >Middle Initial{isActive(query, 'MiddleInitial').isActive ? <img className={getActiveClassName(query, 'MiddleInitial')+'_Arrow'} src={arrow}/> : ''}</th>
       <th
         className={getActiveClassName(query, 'Pet')}
         onClick={() => updateQuery(query, 'Pet')}
-      >Pet</th>
+      >Pet{isActive(query, 'Pet').isActive ? <img className={getActiveClassName(query, 'Pet')+'_Arrow'} src={arrow}/> : ''}</th>
       <th
         className={getActiveClassName(query, 'DateOfBirth')}
         onClick={() => updateQuery(query, 'DateOfBirth')}
-      >Birthday</th>
+      >Birthday{isActive(query, 'DateOfBirth').isActive ? <img className={getActiveClassName(query, 'DateOfBirth')+'_Arrow'} src={arrow}/> : ''}</th>
       <th
         className={getActiveClassName(query, 'FavoriteColor')}
         onClick={() => updateQuery(query, 'FavoriteColor')}
-      >Favroite Color</th>
+      >Favroite Color{isActive(query, 'FavoriteColor').isActive ? <img className={getActiveClassName(query, 'FavoriteColor')+'_Arrow'} src={arrow}/> : ''}</th>
     </tr>
     {assets.map((asset) =>
       <tr className="Assets_Row">
