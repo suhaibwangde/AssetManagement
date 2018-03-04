@@ -18,15 +18,14 @@ function getTotalAssets(count) {
   return { type: types.TOTAL_ASSETS, count }
 }
 
-export function loadAssets(asset, sort, pageNumber, noPerPage) {
-  const query = {
-    asset,
-    sort,
-    pageNumber,
-    noPerPage
-  }
+function updateQuery(query) {
+  return { type: types.UPDATE_QUERY, query }
+}
+
+export function loadAssets(query) {
   return function (dispatch) {
     dispatch(beginAjaxCall());
+    dispatch(updateQuery(query));
     return assetApi.getAllAssets(query).then(assets => {
       dispatch(loadAssetsSuccess(assets));
     }).catch(error => {
@@ -54,9 +53,10 @@ export function setToUpload(name) {
   }
 }
 
-export function uploadAssets(data) {
+export function uploadAssets(name, data) {
   return function (dispatch) {
     dispatch(beginAjaxCall());
+    dispatch(uploadFileSet(name));
     return assetApi.uploadAssets(data).then(file => {
       dispatch(uploadFileSuccess(file));
       dispatch(getAssetsCount());

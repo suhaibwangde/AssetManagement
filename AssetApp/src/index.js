@@ -7,6 +7,7 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import { loadAssets, getAssetsCount } from './actions/assetsActions';
 import DevTools from './containers/devTools';
+import initialState from './reducers/initialState';
 import '../node_modules/toastr/build/toastr.min.css';
 // can pass initail state from db
 let store = configureStore();
@@ -15,7 +16,7 @@ const isProd = process.env.NODE_ENV === 'production'
 if(!isProd)
   store = configureDevStore();
 
-store.dispatch(loadAssets({}, {}, 1, 5));
+store.dispatch(loadAssets(initialState.toJS().query));
 store.dispatch(getAssetsCount());
 
 render(

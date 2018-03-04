@@ -8,14 +8,15 @@ const mapStateToProps = (state, ownProps) => {
     return {
         assets: state.assets.size > 0 ? state.assets.toJS(): [],
         uploadedFile: state.uploadedFile.toJS(),
+        query: state.query.toJS(),
         assetCount: state.assetCount
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        uploadAssets: (data)=> {
-            dispatch(assetsActions.uploadAssets(data)).then(()=>dispatch(assetsActions.getAssetsCount())).catch((err)=> {
+        uploadAssets: (name, data)=> {
+            dispatch(assetsActions.uploadAssets(name, data)).catch((err)=> {
                 console.error(err);
                 toastr.error(err)
             });
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getAssetsCount: () => {
             dispatch(assetsActions.getAssetsCount());
+        },
+        updateQuery: (query) => {
+             dispatch(assetsActions.loadAssets(query));
         },
         actions: bindActionCreators(assetsActions, dispatch)
     };

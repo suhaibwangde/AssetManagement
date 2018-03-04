@@ -41,7 +41,6 @@ class HomePage extends React.Component {
     if (window.FileReader) {
         this.getAsText(this.uploadInput.files[0]);
         this.fileName.value = this.uploadInput.files[0].name;
-        this.props.setToUpload(this.uploadInput.files[0].name);
       // FileReader are supported.
     } else {
       alert('FileReader are not supported in this browser.');
@@ -65,7 +64,7 @@ class HomePage extends React.Component {
   processData(csv) {
         var allTextLines = csv.split(/\r\n|\n/).filter((line)=> line && line.length > 0);
         if(allTextLines.length > 0){
-          this.props.uploadAssets(allTextLines);
+          this.props.uploadAssets(this.fileName.value, allTextLines);
         } else {
           toastr.error('No asset to upload. Please upload valid assets');
         }
@@ -109,7 +108,7 @@ class HomePage extends React.Component {
               </div>
             )
           }
-          {/*{this.props.assets && this.props.assets.length > 0 && <AssetList assets={this.props.assets} />}*/}
+          {this.props.assets && this.props.assets.length > 0 && <AssetList assets={this.props.assets} updateQuery={this.props.updateQuery} query={this.props.query}/>}
           {this.props.assets && this.props.assets.length === 0 && <p>No Assets found</p>}
         </div>
       </div>

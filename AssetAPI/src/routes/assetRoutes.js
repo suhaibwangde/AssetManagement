@@ -69,11 +69,11 @@ const routes = (Asset) => {
         });
     assetRouter.route('/GET')
         .get((req, res) => {
-            console.log(req);
             const sort = req.query.sort;
             const asset = req.query.asset ? req.query.asset : {};
             const pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber) : null;
             const noPerPage = req.query.noPerPage ? parseInt(req.query.noPerPage) : null;
+            console.log(sort, asset, pageNumber, noPerPage);
             if (req.query) {
                 if (sort && noPerPage && pageNumber) {
                     Asset.find(asset, (err, assets) => {
