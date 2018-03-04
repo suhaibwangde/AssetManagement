@@ -4,7 +4,7 @@ import ConnectedApp from './containers/App';
 import ConnectedHomePage from './containers/home/HomePage';
 
 export default (
-  <Route path="/" component={ConnectedApp}>
+  <Route path="/" component={ConnectedHomePage}>
     <IndexRoute component={ConnectedHomePage}/>
     <Route path="assets" component={ConnectedHomePage}/>
   </Route>

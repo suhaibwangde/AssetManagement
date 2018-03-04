@@ -7,6 +7,7 @@ const server = require('../app');
 const should = chai.should();
 
 chai.use(chaiHttp);
+
 describe('API ATDD Tests', () => {
     describe('Scenario: Upload Assets', () => {
         beforeEach((done) => {
@@ -417,4 +418,29 @@ describe('API ATDD Tests', () => {
             });
         });
     });
+
+    describe('Defects: ', ()=> {
+        describe('Given', ()=> {
+            describe('We get incorrect data from user to uploas', ()=> {
+            describe('When', ()=> {
+                describe('/POST is initiated', ()=>{
+                    describe('then', ()=> {
+                        it.only('should return error', ()=>{
+                            let asset = {"data":["Rcccccccunyon|Yoshie|H|Cat|Red|10-15-1979", "Ruccnyon|Yoshie|H|Cat|Red|10-15-1979","Tkfkdkurja|Tenesha|C|Both|Green|2-3-1985","Evekjfkfklo|Dalila|G|None|Blue|6-3-1968"]}
+                            chai.request(server)
+                                .post('/Assets/POST')
+                                .send(asset)
+                                .end((err, res) => {
+                                    console.log(res.body);
+                                    res.should.have.status(200);
+                                    res.body.should.have.length(3);
+                                    done();
+                                });
+                        })
+                    })
+                })
+            });
+            })
+        })
+    })
 });

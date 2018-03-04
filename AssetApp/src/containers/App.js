@@ -4,6 +4,7 @@ import App from '../components/App';
 
 
 const mapStateToProps = (state, ownProps) => {
+    console.log(state);
   return {
     loading: state.ajaxCallInProgress > 0
   };
