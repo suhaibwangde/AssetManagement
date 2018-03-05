@@ -13,6 +13,17 @@
             color:#a7a9ac;
             border-bottom-style: double;
             border-bottom-color: #e6e7e8;
+            cursor: pointer;
+            &:hover {
+                color:#54bbff;
+                width: 20%;
+                min-width: 100px;
+                text-align: left;
+                padding-bottom: 10px; 
+                font-weight: bold;
+                border-bottom-style: double;
+                border-bottom-color: #e6e7e8;
+            }
             &_Active_Descending {
                 color:#54bbff;
                 width: 20%;
@@ -55,6 +66,14 @@
     }
 }
 
+.PageFooter {
+        text-align: center;
+        padding: 10px;
+                        border-bottom-style: double;
+                border-bottom-color: #e6e7e8;
+                height: 50px;
+                font-weight:bold;
+        }
 .PetWrapper {
         padding-top: 5px;
        height: 50px;
@@ -72,4 +91,36 @@
 .None {
     font-style: italic;
     color:#a7a9ac;
+}
+
+.PageNumber {
+    color: #363945;
+    padding: 10px;
+    cursor: pointer;
+    &_Active {
+        color: #54bbff;
+        padding: 10px;
+        cursor: pointer;
+    }
+    &:hover{
+        color: #54bbff;
+        padding: 10px;  
+        cursor: pointer;
+    }
+}
+
+.noPerPage {
+    float: left;
+    cursor: pointer;
+}
+
+.CustomPage {
+    float: right;
+    &_PageNumber{
+        width: 30px
+    }
+    &_LoadPage{
+           background-color: #54bbff;
+              color: #ffffff;
+    }
 }

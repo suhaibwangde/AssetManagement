@@ -18,14 +18,19 @@ function getTotalAssets(count) {
   return { type: types.TOTAL_ASSETS, count }
 }
 
-function updateQuery(query) {
+export function updateQuery(query) {
   return { type: types.UPDATE_QUERY, query }
-}
+} 
+
+export function setActivePage(pageNumber) {
+  return { type: types.SET_ACTIVE_PAGE, pageNumber }
+} 
 
 export function loadAssets(query) {
   return function (dispatch) {
     dispatch(beginAjaxCall());
     dispatch(updateQuery(query));
+    dispatch(setActivePage(query.pageNumber));
     return assetApi.getAllAssets(query).then(assets => {
       dispatch(loadAssetsSuccess(assets));
     }).catch(error => {

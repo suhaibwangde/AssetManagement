@@ -38,6 +38,7 @@
           &_Form {
             float: right;
             width: 430px;
+            cursor: pointer;
             &_Text {
               width: 315px;
               height: 30px;
@@ -48,6 +49,7 @@
               border-color:#e6e7e8;
               border-style: double;
               color: #a7a9ac;
+              
             }
             &_Button {
               width: 110px;
@@ -60,12 +62,18 @@
               color: #ffffff;
               border-color: #54bbff;
               border-style: double;
+              cursor: pointer;
+              &:hover {
+              background-color: #54bbee;
+              color: #ffffff;
+              }
             }
             &_File {
               opacity: 0;
               width: 0;
               height: 0;
               padding: 0;
+              cursor: pointer;
             }
           }
         }

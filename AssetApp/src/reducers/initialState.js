@@ -8,6 +8,7 @@ export default fromJS({
     pageNumber: 1,
     noPerPage: 5
   },
+  activePage: 1,
   uploadedFile: {
     name: 'my-File.csv',
     success: false 

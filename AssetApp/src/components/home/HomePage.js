@@ -2,8 +2,10 @@ import React, { PropTypes } from 'react';
 import 'react-table/react-table.css';
 import AssetList from './AssetList';
 import { browserHistory } from 'react-router';
+import ConnectedAssetList from '../../containers/home/AssetList';
 import toastr from 'toastr';
 import './HomePage.scss';
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -63,12 +65,10 @@ class HomePage extends React.Component {
 
 
   render() {
-    console.log('ok');
     return (
       <div id="main" className='HomePage'>
         <div id="content" className='HomePage_Content'>
           {
-            this.props.assetCount >= 0 && (
               <div className="HomePage_Content_Display">
                 <div className='HomePage_Content_Display_People'>{this.props.assetCount} People</div>
                 <div className="HomePage_Content_Display_Upload_Wrapper">
@@ -89,9 +89,8 @@ class HomePage extends React.Component {
                   </form>
                 </div>
               </div>
-            )
           }
-          {this.props.assets && this.props.assets.length > 0 && <AssetList assets={this.props.assets} updateQuery={this.props.updateQuery} query={this.props.query}/>}
+          {this.props.assets && this.props.assets.length > 0 && <ConnectedAssetList/>}
           {this.props.assets && this.props.assets.length === 0 && <p>No Assets found</p>}
         </div>
       </div>

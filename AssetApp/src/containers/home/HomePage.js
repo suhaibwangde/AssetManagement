@@ -8,7 +8,6 @@ const mapStateToProps = (state, ownProps) => {
     return {
         assets: state.assets.size > 0 ? state.assets.toJS() : [],
         uploadedFile: state.uploadedFile.toJS(),
-        query: state.query.toJS(),
         assetCount: state.assetCount
     };
 }
@@ -20,23 +19,6 @@ const mapDispatchToProps = (dispatch) => {
                 console.error(err);
                 toastr.error(err)
             });
-        },
-        setToUpload: (name) => {
-            assetsActions.setToUpload(name);
-        },
-        getAssetsCount: () => {
-            dispatch(assetsActions.getAssetsCount());
-        },
-        updateQuery: (query, column) => {
-            const sort = {};
-            if (query['sort'] && query['sort'][column] && query['sort'][column] === 1) {
-                 sort[column] = -1;
-                dispatch(assetsActions.loadAssets(Object.assign({}, query, {sort})));
-            } else {
-                sort[column] = 1;
-                dispatch(assetsActions.loadAssets(Object.assign({}, query, {sort})));
-            }
-
         },
         actions: bindActionCreators(assetsActions, dispatch)
     };

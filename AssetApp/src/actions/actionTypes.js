@@ -5,3 +5,4 @@ export const UPDATE_QUERY='UPDATE_QUERY';
 export const TOTAL_ASSETS ='TOTAL_ASSETS';
 export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
 export const AJAX_CALL_ERROR = 'AJAX_CALL_ERROR';
+export const SET_ACTIVE_PAGE='SET_ACTIVE_PAGE';
