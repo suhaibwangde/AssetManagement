@@ -2,19 +2,19 @@ import * as types from './actionTypes';
 import assetApi from '../api/assetApi';
 import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 
-function loadAssetsSuccess(assets) {
+export function loadAssetsSuccess(assets) {
   return { type: types.LOAD_ASSETS_SUCCESS, assets };
 }
 
-function uploadFileSuccess(data) {
+export function uploadFileSuccess(data) {
   return { type: types.UPLOAD_ASSETS_SUCCESS, data };
 }
 
-function uploadFileSet(name) {
+export function uploadFileSet(name) {
   return { type: types.UPLOAD_FILE_SET, name };
 }
 
-function getTotalAssets(count) {
+export function getTotalAssets(count) {
   return { type: types.TOTAL_ASSETS, count }
 }
 

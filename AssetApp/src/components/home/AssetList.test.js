@@ -59,6 +59,12 @@ describe('Given', () => {
                         expect(wrapper.find('.Assets_Row_Header_Active_Descending')).to.have.length(0);
                     });
                     it('should have Active Header when query is ascending', () => {
+                         const assets = [{ "_id": "5a9ba1e179bffd4260759018", "LastName": "Turja", "FirstName": "Tenesha", "MiddleInitial": "C", "Pet": "Both", "FavoriteColor": "Green", "DateOfBirth": "1985-02-03T05:00:00.000Z", "__v": 0 },
+                        { "_id": "5a9ba1e179bffd426075901a", "LastName": "Evelo", "FirstName": "Dalila", "MiddleInitial": "G", "Pet": "None", "FavoriteColor": "Blue", "DateOfBirth": "1968-06-03T04:00:00.000Z", "__v": 0 },
+                        { "_id": "5a9ba1e179bffd4260759019", "LastName": "Runyon", "FirstName": "Yoshie", "MiddleInitial": "H", "Pet": "Cat", "FavoriteColor": "Red", "DateOfBirth": "1979-10-15T04:00:00.000Z", "__v": 0 },
+                        { "_id": "5a9ba24d79bffd426075901b", "LastName": "Radican", "FirstName": "Shalonda", "Pet": "Cat", "FavoriteColor": "Turquoise", "DateOfBirth": "1945-04-14T04:00:00.000Z", "__v": 0 },
+                        { "_id": "5a9ba24d79bffd426075901c", "LastName": "Brinckerhoff", "FirstName": "Jennifer", "Pet": "Dog", "FavoriteColor": "Yellow", "DateOfBirth": "1980-09-20T04:00:00.000Z", "__v": 0 }]
+                       
                          const query = {
                             asset: null,
                             sort: {
@@ -68,8 +74,6 @@ describe('Given', () => {
                             noPerPage: 5
                         }
                         const wrapper = mount(<AssetList assets={assets} query={query} query={query} updateQueryAndLoad={()=> 'test'} count={5}/>);
-                        const LastNameHeader = wrapper.find('.Assets_Row_Header').first();
-                        LastNameHeader.simulate('click');
                         expect(wrapper.find('.Assets_Row_Header_Active_Ascending')).to.have.length(1);
                     });
                          it('should have Active Header when query is descending', () => {
@@ -115,7 +119,7 @@ describe('Given', () => {
         describe('when', () => {
             describe('Call is initiated', () => {
                 describe('then', () => {
-                    it.only('should have no pages', () => {
+                    it('should have no pages', () => {
                         const assets = [{"_id":"5a9ba1e179bffd4260759018","LastName":"Turja","FirstName":"Tenesha","MiddleInitial":"C","Pet":"Both","FavoriteColor":"Green","DateOfBirth":"1985-02-03T05:00:00.000Z","__v":0},
                         {"_id":"5a9ba1e179bffd426075901a","LastName":"Evelo","FirstName":"Dalila","MiddleInitial":"G","Pet":"None","FavoriteColor":"Blue","DateOfBirth":"1968-06-03T04:00:00.000Z","__v":0},
                         {"_id":"5a9ba1e179bffd4260759019","LastName":"Runyon","FirstName":"Yoshie","MiddleInitial":"H","Pet":"Cat","FavoriteColor":"Red","DateOfBirth":"1979-10-15T04:00:00.000Z","__v":0},
