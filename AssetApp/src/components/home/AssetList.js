@@ -69,7 +69,6 @@ const buildFoooter = (pageNumber, noPerPage, count, updateQueryAndLoad, activePa
     let tots = (count / noPerPage);
     if(tots > 1 && (count % noPerPage) > 0)
       tots++;
-    console.log(tots, count, noPerPage);
     for (let i = 1; i <= tots; i++) {
       pages.push(<span className={parseInt(activePage) === i ? 'PageNumber_Active' : 'PageNumber'} onClick={() => updateQueryAndLoad(query, 'pageNumber', i)}>{i}</span>);
     }

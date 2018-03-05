@@ -22,8 +22,8 @@ export function updateQuery(query) {
   return { type: types.UPDATE_QUERY, query }
 } 
 
-export function setActivePage(pageNumber) {
-  return { type: types.SET_ACTIVE_PAGE, pageNumber }
+export function setActivePage(activePage) {
+  return { type: types.SET_ACTIVE_PAGE, activePage }
 } 
 
 export function loadAssets(query) {

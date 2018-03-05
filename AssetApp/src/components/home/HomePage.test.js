@@ -86,7 +86,6 @@ describe('Given', () => {
                             ajaxCallInProgress: 0
                         }
                         const wrapper = shallow(<HomePage {...props} />);
-                        //console.log(wrapper.find('.HomePage_Content_People'))
                         expect(wrapper.find('.HomePage_Content_People')).to.have.length(1);
                     });
                 });
