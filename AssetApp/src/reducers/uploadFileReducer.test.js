@@ -9,7 +9,7 @@ describe('Test UploadFile Reducer', () => {
                 name: 'my-File.csv',
                 success: false
         }
-        const action = assetsActions.uploadFileSuccess(true);
+        const action = assetsActions.uploadFileSuccess({success: true});
         const newState = uploadFileReducer(intialState, action);
         expect(newState.toJS().success).toEqual(true);
     });
