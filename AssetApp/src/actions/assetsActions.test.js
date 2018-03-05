@@ -30,7 +30,7 @@ describe('Async Actions', () => {
 
   it('should create BEGIN_AJAX_CALL and load assets when LOAD_ASSETS_SUCCESS', (done) => {
     //Example to nock
-    nock('http://localhost:3001/api').get('/assets/GET').reply(200, {body: {data: {}}})
+    nock('http://localhost:3001').get('/assets/GET').reply(200, {body: {data: {}}})
 
     done();
   });

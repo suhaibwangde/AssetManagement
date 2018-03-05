@@ -2,13 +2,13 @@ import request from 'superagent';
 
 const requestApi = 'http://localhost:3001/Assets/';
 
-const doo= () => {};
+const doo = () => { };
 
 class AssetApi {
   static getAllAssets(query) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       request
-        .get(requestApi+'GET')
+        .get(requestApi + 'GET')
         .query(query)
         .end(function (err, res) {
           if (err) {
@@ -21,10 +21,10 @@ class AssetApi {
     });
   }
 
-    static getTotalAssets() {
-    return new Promise( (resolve, reject) => {
+  static getTotalAssets() {
+    return new Promise((resolve, reject) => {
       request
-        .get(requestApi+'COUNT')
+        .get(requestApi + 'COUNT')
         .end(function (err, res) {
           if (err) {
             reject(err);
@@ -35,19 +35,20 @@ class AssetApi {
 
     });
   }
-    static uploadAssets(data) {
+  static uploadAssets(data) {
     return new Promise((resolve, reject) => {
       if (data) {
         request
-          .post(requestApi+'POST')
-          .send({data: data})
+          .post(requestApi + 'POST')
+          .send({ data: data })
           .end(function (err, res) {
-            if(res){
-             if(res.status === 200){
-              resolve(res.body);
-            } else {
-              reject(res.text);
-            }} else if(err){
+            if (res) {
+              if (res.status === 200) {
+                resolve(res.body);
+              } else {
+                reject(res.text);
+              }
+            } else if (err) {
               reject(err);
             } else {
               reject('Unknown error');

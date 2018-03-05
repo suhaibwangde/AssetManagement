@@ -66,7 +66,11 @@ const getPetDisplay = (asset) => {
 const buildFoooter = (pageNumber, noPerPage, count, updateQueryAndLoad, activePage, query) => {
   const pages = [];
   if (noPerPage && count) {
-    for (let i = 1; i <= (count / noPerPage); i++) {
+    let tots = (count / noPerPage);
+    if(tots > 1 && (count % noPerPage) > 0)
+      tots++;
+    console.log(tots, count, noPerPage);
+    for (let i = 1; i <= tots; i++) {
       pages.push(<span className={parseInt(activePage) === i ? 'PageNumber_Active' : 'PageNumber'} onClick={() => updateQueryAndLoad(query, 'pageNumber', i)}>{i}</span>);
     }
   }
@@ -99,6 +103,8 @@ const isValidPage = (pageNumber, noPerPage, count) => {
 }
 
 const AssetList = ({ assets, updateQueryAndLoad, updateQuery, query, count, loadAssets, activePage }) => {
+  if(assets && assets.length > 0) {
+  const pages = buildFoooter(query.pageNumber, query.noPerPage, count, updateQueryAndLoad, activePage, query);
   return (<table className="Assets">
     <tr className="Assets_Row">
       <th
@@ -141,7 +147,7 @@ const AssetList = ({ assets, updateQueryAndLoad, updateQuery, query, count, load
         <td className="Assets_Row_Data">{asset.FavoriteColor}</td>
       </tr>
     )}
-    <tr className="Assets_Row">
+    {pages && pages.length > 0 && <tr className="Assets_Row">
       <td colSpan={6} className="PageFooter">
         <select className="noPerPage" onChange={(evt) => updateQueryAndLoad(query, 'noPerPage', evt.target.value)}>
           <option value={5}>5</option>
@@ -150,7 +156,7 @@ const AssetList = ({ assets, updateQueryAndLoad, updateQuery, query, count, load
           <option value={20}>20</option>
         </select>
         <span className='PageNumber' onClick={() => updateQueryAndLoad(query, 'pageNumber', previousPage(query.pageNumber, query.noPerPage, count))}>{'<'}</span>
-        {buildFoooter(query.pageNumber, query.noPerPage, count, updateQueryAndLoad, activePage, query).map((a) => a)}
+        {pages}
         <span className='PageNumber' onClick={() => updateQueryAndLoad(query, 'pageNumber', nextPage(query.pageNumber, query.noPerPage, count))}>{'>'}</span>
         <div className="CustomPage">
           <input className="CustomPage_PageNumber" type="text" value={query.pageNumber} onKeyPress={(e) => {
@@ -179,8 +185,11 @@ const AssetList = ({ assets, updateQueryAndLoad, updateQuery, query, count, load
           }} />
         </div>
       </td>
-    </tr>
+    </tr>}
   </table>);
+  } else {
+    return (<p>No Assets to Display</p>);
+  }
 };
 
 AssetList.propTypes = {

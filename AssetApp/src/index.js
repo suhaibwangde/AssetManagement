@@ -9,14 +9,15 @@ import { loadAssets, getAssetsCount } from './actions/assetsActions';
 import DevTools from './containers/devTools';
 import initialState from './reducers/initialState';
 import '../node_modules/toastr/build/toastr.min.css';
-// can pass initail state from db
 let store = configureStore();
 
 const isProd = process.env.NODE_ENV === 'production'
 if(!isProd)
   store = configureDevStore();
 
+// Dispatch assets for initial sets
 store.dispatch(loadAssets(initialState.toJS().query));
+// Get Assets count
 store.dispatch(getAssetsCount());
 
 render(
