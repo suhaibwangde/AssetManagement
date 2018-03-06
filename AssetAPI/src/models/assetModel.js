@@ -1,28 +1,43 @@
-const fileOrder = require('./fileOrder');
+const fileOrder = require('./fileOrder')
 
+// Create Asset Model
 const Create = (data) => {
+    // Check data provided was string
     if (typeof (data) === 'string') {
-        let asset = {};
-        let order = [];
-        let values = [];
+        // Create asset object
+        let asset = {}
+        // Create order array
+        let order = []
+        // Create values array
+        let values = []
+        // Check if array was comma delimited
         if (data.includes(',')) {
-            values = data.split(',');
-            order = fileOrder.COMMA_DELIMITED_FILE_ORDER.split(',');
+            // Get values of comma delimited
+            values = data.split(',')
+            // Get order of comma delimited
+            order = fileOrder.COMMA_DELIMITED_FILE_ORDER.split(',')
         } else if (data.includes(' ')) {
-            values = data.split(' ');
-            order = fileOrder.SPACE_DELIMITED_FILE_ORDER.split(' ');
+            // Get values of space delimited
+            values = data.split(' ')
+            // Get order for space delimited
+            order = fileOrder.SPACE_DELIMITED_FILE_ORDER.split(' ')
         } else if (data.includes('|')) {
-            values = data.split('|');
-            order = fileOrder.PIPE_DELIMITED_FILE_ORDER.split('|');
+            // Get values of pipe delimited
+            values = data.split('|')
+            // Get order of pipe delimited
+            order = fileOrder.PIPE_DELIMITED_FILE_ORDER.split('|')
         }
-        order.forEach(function (property, index) {
-            asset[property] = values[index] ? values[index] : '';
-        });
-        return asset;
+        // Loop over order
+        order.forEach((property, index) => {
+            // fill property based on order and value at index
+            asset[property] = values[index] ? values[index] : ''
+        })
+        return asset
     }
-    return null;
+    return null
 }
 
+// Compare Asset base on property value
 const Compare = (one, two) => {
     return one['LastName'] === two['LastName'] &&
         one['MiddleInitial'] === two['MiddleInitial'] &&
@@ -30,6 +45,6 @@ const Compare = (one, two) => {
         one['Pet'] === two['Pet'] &&
         one['DateOfBirth'] === two['DateOfBirth'] &&
         one['FavoriteColor'] === two['FavoriteColor']
-};
+}
 
-module.exports = { Create, Compare };
+module.exports = { Create, Compare }

@@ -1,35 +1,51 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
 
 var assetSchema = mongoose.Schema({
-    LastName: String,
-    FirstName: String,
-    MiddleInitial: String,
-    Pet: String,
-    FavoriteColor: String,
-    DateOfBirth: Date
-});
+  LastName: String,
+  FirstName: String,
+  MiddleInitial: String,
+  Pet: String,
+  FavoriteColor: String,
+  DateOfBirth: Date
+})
 
-const Asset = mongoose.model("Asset", assetSchema);
+// Asset Model from schema
+const Asset = mongoose.model('Asset', assetSchema)
 
+// Save Asset
 const Save = (assets, onSave, onExist, onError, onDone) => {
-    if (assets && assets.length > 0) {
-        assets.forEach((asset, i) => {
-            Asset.findOne(asset, (err, exist) => {
-                if (exist === null) {
-                    const newAsset = new Asset(asset);
-                    newAsset.save((err, savedAsset) => {
-                        if (err)
-                            onError(err, assets.length);
-                        onSave(savedAsset,  assets.length);
-                    });
-                } else {
-                    onExist(exist,  assets.length);
-                }
-                if (err) {
-                    onError(err,  assets.length);
-                } 
-            });
-        });
-    }
+  // Check for Assets and its length
+  if (assets && assets.length > 0) {
+    // loop over all assets
+    assets.forEach((asset, i) => {
+      // Check if asset exists
+      Asset.findOne(asset, (err, exist) => {
+        // if not exists
+        if (exist === null) {
+          // Create Asset
+          const newAsset = new Asset(asset)
+          // Save Asst
+          newAsset.save((err, savedAsset) => {
+            // Check if err while saving asset
+            if (err) {
+              // log error
+              onError(err, assets.length)
+            }
+            // Mark asset as uploaded
+            onSave(savedAsset, assets.length)
+          })
+        } else {
+          // Mark asset as exsiting
+          onExist(exist, assets.length)
+        }
+        // log error
+        if (err) {
+          onError(err, assets.length)
+        }
+      })
+    })
+  }
 }
-module.exports = { Asset, Save };
+
+// Export Asset & Save
+module.exports = { Asset, Save }
