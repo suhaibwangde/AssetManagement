@@ -52,5 +52,5 @@ Create a view based on the attached mock-up. When a user imports a file, the dat
 		. Updating styling related to sort.
 		- Veriifying through TDD this still works
 		- At each commponent we have test cases to validate components display.
-	- Then connect them through conatainer & store in order to fetch actual values throug api
+		- Then added paging feature as well inorder to fetch assets with limit display.
 	
