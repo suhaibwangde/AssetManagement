@@ -9,6 +9,7 @@ class AssetApi {
     return new Promise((resolve, reject) => {
       request
         .get(requestApi + 'GET')
+         .set("Access-Control-Allow-Origin", "*")
         .query(query)
         .end(function (err, res) {
           if (err) {
@@ -25,6 +26,7 @@ class AssetApi {
     return new Promise((resolve, reject) => {
       request
         .get(requestApi + 'COUNT')
+             .set("Access-Control-Allow-Origin", "*")
         .end(function (err, res) {
           if (err) {
             reject(err);
@@ -41,6 +43,7 @@ class AssetApi {
         request
           .post(requestApi + 'POST')
           .send({ data: data })
+          .set("Access-Control-Allow-Origin", "*")
           .end(function (err, res) {
             if (res) {
               if (res.status === 200) {
