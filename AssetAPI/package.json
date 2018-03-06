@@ -2,7 +2,7 @@
   "name": "AssetAPI",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "arc/app.js",
   "scripts": {
     "start": "npm-run-all --parallel open:src lint:watch",
     "open:src": "nodemon src/app.js",
