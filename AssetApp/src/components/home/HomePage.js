@@ -46,7 +46,6 @@ class HomePage extends React.Component {
 
   loadHandler(event) {
     const csv = event.target.result;
-    console.log('tes');
     this.processData(csv);
   }
 

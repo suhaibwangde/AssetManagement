@@ -41,7 +41,7 @@ describe('Test Store', () => {
         const actual = store.getState().query.toJS().pageNumber;
         expect(actual).toEqual(newQuery.pageNumber);
     });
-        it.only('should handle uploaded file', () => {
+        it('should handle uploaded file', () => {
         const store = createStore(rootReducer, initialState);
          const action = assetsActions.uploadFileSuccess({ uploaded:['foo'], exists:['foo'], errors:['foo']  });
         store.dispatch(action);

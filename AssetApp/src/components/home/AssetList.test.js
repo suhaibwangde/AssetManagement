@@ -108,7 +108,7 @@ describe('Given', () => {
                             noPerPage: 5
                         }
                         const wrapper = shallow(<AssetList assets={assets} query={query}/>);
-                        expect(wrapper.find('.PageFooter')).to.have.length(0);
+                        expect(wrapper.find('.PageNumber')).to.have.length(0);
                     });
                 });
             });
