@@ -1,9 +1,9 @@
-* [Asset Management](#AssetManagement)
-* [Pre Requisite] (#PreRequisiste)
-* [Configuration] (#configuration)
-* [Execution] (#Execution)
-* [Implementation](#implementation)
-* [ThoughtProcess] (#thoughtprocess)
+* [Asset Management]
+* [Pre Requisite]
+* [Configuration]
+* [Execution]
+* [Implementation]()
+* [ThoughtProcess]
 
 ## Asset Management
 Create a view based on the attached mock-up. When a user imports a file, the data should be appended to the table. When you click the table headers, the table should sort based on the field you clicked. Clicking on it again should toggle the sort order between ascending and descending. Please follow the mock-up, but don’t worry about making things pixel-perfect except where things are specified in red text in the mock-up.
@@ -14,18 +14,18 @@ Create a view based on the attached mock-up. When a user imports a file, the dat
 
 	Install Monfodb version 3.6
 	
-## Configuration #configuration
+## Configuration
 
 	Update AssetAPI/src/config.js
 		- HOST: mongodb host
 		- PORT: 3001 default
 		
-## Execution #Execution
+## Execution
 	
 	Run init.bat
 
 	
-## Implementation #implementations
+## Implementation
 
 	- Database
 		- Mongo DB: Here we choose to make decision on mongodb as we have one model and we can store them as json document and acess easily
@@ -34,7 +34,7 @@ Create a view based on the attached mock-up. When a user imports a file, the dat
 	- APP
 		- ReactJs: Choice of ReactJs firstly I love to work with react, secondly is more maintainable than other frameworks, its unidirectional, Immutable. Other choices can be Angular MVC but I would avoid thoses
 
-## ThoughtProcess #thoughtprocess
+## ThoughtProcess
 
 	- I started working with API 
 	- TDD Approach for building
