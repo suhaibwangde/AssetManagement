@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import assetApi from '../api/assetApi';
 import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
+import toastr from 'toastr';
 
 export function loadAssetsSuccess(assets) {
   return { type: types.LOAD_ASSETS_SUCCESS, assets };
@@ -58,14 +59,11 @@ export function setToUpload(name) {
   }
 }
 
-export function uploadAssets(name, data) {
+export function uploadAssets(name, data, query) {
   return function (dispatch) {
     dispatch(beginAjaxCall());
     dispatch(uploadFileSet(name));
-    return assetApi.uploadAssets(data).then(file => {
-      dispatch(uploadFileSuccess(file));
-      dispatch(getAssetsCount());
-    }).catch(error => {
+    return assetApi.uploadAssets(data).catch(error => {
       dispatch(ajaxCallError());
       throw (error);
     });

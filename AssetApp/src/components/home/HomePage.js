@@ -46,13 +46,15 @@ class HomePage extends React.Component {
 
   loadHandler(event) {
     const csv = event.target.result;
+    console.log('tes');
     this.processData(csv);
   }
 
   processData(csv) {
     const allTextLines = csv.split(/\r\n|\n/).filter((line) => line && line.length > 0);
     if (allTextLines.length > 0) {
-      this.props.uploadAssets(this.fileName.value, allTextLines);
+      this.props.uploadAssets(this.fileName.value, allTextLines, this.props.query);
+      this.Form.reset();
     } else {
       toastr.error('No asset to upload. Please upload valid assets');
     }
@@ -76,7 +78,7 @@ class HomePage extends React.Component {
                 <div className="HomePage_Content_Display_Upload_Wrapper_Span">
                   <span className="HomePage_Content_Display_Upload_Wrapper_Span_Content">Import a file</span>
                 </div>
-                <form className="HomePage_Content_Display_Upload_Wrapper_Form">
+                <form ref={(ref) => { this.Form = ref; }} className="HomePage_Content_Display_Upload_Wrapper_Form">
                   <input
                     ref={(ref) => { this.fileName = ref; }}
                     className="HomePage_Content_Display_Upload_Wrapper_Form_Text"

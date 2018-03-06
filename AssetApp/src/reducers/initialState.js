@@ -11,7 +11,9 @@ export default fromJS({
   activePage: 1,
   uploadedFile: {
     name: 'my-File.csv',
-    success: false 
+    uploaded: [],
+    exists: [],
+    errors: [] 
   },
   ajaxCallInProgress: 0
 });
