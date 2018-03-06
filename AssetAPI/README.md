@@ -437,7 +437,7 @@ Request Body:
 Response Body:
 
 	[
-		{
+		"updated:" [{
 			"_id": "5a98b81f44a67442800e6248",
 			"__v": 0,
 			"LastName": "Doloris",
@@ -466,7 +466,9 @@ Response Body:
 			"Pet": "D",
 			"FavoriteColor": "Green",
 			"DateOfBirth": "1992-03-03T04:00:00.000Z"
-		}
+		}],
+		exists: [],
+		errors: []
 	]
 
 ## Error handling
