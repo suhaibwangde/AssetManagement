@@ -1,6 +1,6 @@
 * [Asset Management](#AssetManagement)
 * [Pre Requisite] (#PreRequisiste)
-* [Configuration] (#Config)
+* [Configuration] (#configuration)
 * [Execution] (#Execution)
 * [Implementation](#implementation)
 * [ThoughtProcess] (#thoughtprocess)
@@ -10,22 +10,22 @@ Create a view based on the attached mock-up. When a user imports a file, the dat
 # Asset API
 
 
-## Pre Requisite
+## Pre Requisite 
 
 	Install Monfodb version 3.6
 	
-## Configuration
+## Configuration #configuration
 
 	Update AssetAPI/src/config.js
 		- HOST: mongodb host
 		- PORT: 3001 default
 		
-## Execution
+## Execution #Execution
 	
 	Run init.bat
 
 	
-## Implementation
+## Implementation #implementations
 
 	- Database
 		- Mongo DB: Here we choose to make decision on mongodb as we have one model and we can store them as json document and acess easily
@@ -34,7 +34,7 @@ Create a view based on the attached mock-up. When a user imports a file, the dat
 	- APP
 		- ReactJs: Choice of ReactJs firstly I love to work with react, secondly is more maintainable than other frameworks, its unidirectional, Immutable. Other choices can be Angular MVC but I would avoid thoses
 
-## ThoughtProcess
+## ThoughtProcess #thoughtprocess
 
 	- I started working with API 
 	- TDD Approach for building
